@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="shortcut icon" href="iohc-logo.png" type="image/png" />
+  <title>Indatwa Opportunity Hub Club (IOHC)</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      margin: 0;
+      padding: 0;
+      color: #eee;
+      position: relative;
+      background: linear-gradient(135deg, #1f2a38, #3b4d79);
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(173,216,230,0.2) 1px, transparent 1px);
+      background-size: 30px 30px;
+      animation: rainMove 4s linear infinite;
+      z-index: -1;
+      opacity: 0.3;
+    }
+
+    @keyframes rainMove {
+      from { transform: translate(0, 0); }
+      to { transform: translate(-30px, 30px); }
+    }
+
+    .rain-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .rain-drop {
+      width: 8px;
+      height: 20px;
+      background: rgba(173, 216, 230, 0.6);
+      border-radius: 50%;
+      position: absolute;
+      animation: fall 3s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-30px); opacity: 0.7; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    header {
+      background: linear-gradient(90deg, #7b4397 0%, #dc2430 100%);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ✅ Shiny Logo */
+    header img {
+      width: 180px;
+      margin-bottom: 15px;
+      border-radius: 50%;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.8),
+                  0 0 50px rgba(178, 136, 221, 0.8),
+                  0 0 75px rgba(220, 36, 48, 0.6);
+      animation: shinePulse 3s infinite alternate;
+    }
+
+    @keyframes shinePulse {
+      from {
+        transform: scale(1);
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.8),
+                    0 0 50px rgba(178, 136, 221, 0.7),
+                    0 0 75px rgba(220, 36, 48, 0.5);
+      }
+      to {
+        transform: scale(1.1);
+        box-shadow: 0 0 35px rgba(255, 255, 255, 1),
+                    0 0 70px rgba(178, 136, 221, 1),
+                    0 0 100px rgba(220, 36, 48, 0.8);
+      }
+    }
+
+    /* ✅ Rotating Shine Reflection */
+    header img::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -150%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0.6) 0%, transparent 80%);
+      transform: skewX(-25deg);
+      animation: shineSweep 4s infinite;
+    }
+
+    @keyframes shineSweep {
+      0% { left: -150%; }
+      50% { left: 150%; }
+      100% { left: 150%; }
+    }
+
+    nav {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #b288dd;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #f5baff;
+    }
+
+    section {
+      margin: 40px auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      max-width: 900px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      color: #e5d4f0;
+    }
+
+    h2 {
+      color: #b288dd;
+    }
+
+    #welcome {
+      animation: fadeSlideDown 2s ease;
+    }
+
+    .animated-text {
+      font-size: 1.5rem;
+      color: #b288dd;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(-20px); }
+    }
+
+    #updates ul {
+      list-style: none;
+      padding: 0;
+      font-size: 1.1rem;
+    }
+
+    #updates li {
+      padding: 10px 0;
+      color: #b288dd;
+    }
+
+    /* ✅ Fixed Team & Gallery Layout */
+    .team-container, .gallery-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .team-member, .gallery-container img {
+      text-align: center;
+    }
+
+    .team-member img, .gallery-container img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+
+    .team-member:hover img, .gallery-container img:hover {
+      transform: scale(1.1);
+    }
+
+    .team-member p {
+      margin-top: 10px;
+      font-size: 1rem;
+      color: #e5d4f0;
+    }
+
+    .apply-form input, .apply-form textarea {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    .apply-form button, .join-button {
+      background-color: #c38eb4;
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .apply-form button:hover, .join-button:hover {
+      background-color: #e0b0ff;
+      transform: scale(1.05);
+    }
+
+    #join {
+      background: linear-gradient(90deg, #7b4397 0%, #dc2430 100%);
+      color: white;
+      padding: 50px 20px;
+      border-radius: 12px;
+    }
+
+    #join h2 {
+      color: #ffd6ff;
+    }
+
+    #social-media a {
+      color: #b288dd;
+      margin: 0 10px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    #social-media a:hover {
+      color: #f5baff;
+    }
+
+    footer {
+      margin-top: 50px;
+      padding: 20px;
+      background: linear-gradient(90deg, #7b4397 0%, #dc2430 100%);
+      color: white;
+      border-radius: 12px;
+    }
+
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      header img { width: 120px; }
+      nav a { display: block; margin: 10px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="rain-container" id="rain"></div>
+
+<header>
+  <img src="iohc-logo.png" alt="IOHC Logo">
+  <h1>Indatwa Opportunity Hub Club (IOHC)</h1>
+  <p><em>Illuminating Opportunities, Empowering Futures</em></p>
+</header>
+
+<nav>
+  <a href="#welcome">Welcome</a>
+  <a href="#updates">Updates</a>
+  <a href="#team">Leadership</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#contact">Contact</a>
+  <a href="#join">Join</a>
+  <a href="#apply">Apply</a>
+</nav>
+
+<section id="welcome">
+  <h2 class="animated-text">Welcome to Indatwa Opportunity Hub Club (IOHC)</h2>
+  <p class="animated-text">Illuminating Opportunities, Empowering Futures</p>
+</section>
+
+<section id="updates">
+  <h2>Club News & Updates</h2>
+  <ul>
+    <li>✔ We are now open for new membership applications!</li>
+    <li>✔ August 5: Innovation Challenge Kickoff</li>
+    <li>✔ Partnering with new schools for workshops!</li>
+  </ul>
+</section>
+
+<section id="team">
+  <h2>Meet the Team</h2>
+  <div class="team-container">
+    <div class="team-member">
+      <img src="Veridique.jpg" alt="Iranzi Veridique">
+      <p><strong>Iranzi Veridique</strong><br>President</p>
+    </div>
+    <div class="team-member">
+      <img src="Parfait.jpg" alt="Parfait Rukundo">
+      <p><strong>Parfait Rukundo</strong><br>Vice President</p>
+    </div>
+    <div class="team-member">
+      <img src="Emellance.jpg.jpg" alt="Emellance">
+      <p><strong>Emellance</strong><br>Secretary</p>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <h2>Gallery</h2>
+  <div class="gallery-container">
+    <img src="gallery1.jpg" alt="Activity 1">
+    <img src="gallery2.jpg" alt="Activity 2">
+    <img src="gallery3.jpg" alt="Activity 3">
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact Us</h2>
+  <p>Email: indatwaopphub1@gmail.com</p>
+  <p>Tel: +250 782 282 084 and +250 736 660 712</p>
+</section>
+
+<section id="join">
+  <h2>Join Us</h2>
+  <p>Are you interested in joining the Indatwa Opportunity Hub Club (IOHC)? Reach out to us!</p>
+  <a href="#contact" class="join-button">Contact Us Now</a>
+</section>
+
+<section id="apply">
+  <h2>Apply to Join IOHC</h2>
+  <p>Click below to apply using our official application form. We look forward to reviewing your application!</p>
+  <a href="https://docs.google.com/forms/d/1NxUSBBR-kA5m9aVHIiIkoSIln7-Bg3PCjkzXkcVPbkE/edit" target="_blank" class="join-button">Apply Now</a>
+</section>
+
+<section id="countdown">
+  <h2>Countdown to Our Next Big Event!</h2>
+  <p id="timer" style="font-size: 2rem; color:#b288dd;"></p>
+</section>
+
+<section id="social-media">
+  <h2>Connect With Us</h2>
+  <a href="https://wa.me/250782282084" target="_blank">WhatsApp</a> |
+  <a href="mailto:indatwaopphub1@gmail.com" target="_blank">Email</a> |
+  <a href="https://instagram.com/yourclubaccount" target="_blank">Instagram</a> |
+  <a href="https://facebook.com/yourclubaccount" target="_blank">Facebook</a>
+</section>
+
+<footer>
+  <p>&copy; 2025 Indatwa Opportunity Hub Club. All rights reserved.</p>
+</footer>
+
+<audio id="rainSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_b3fefb40db.mp3" autoplay loop></audio>
+<script>
+  const rainAudio = document.getElementById('rainSound');
+  rainAudio.volume = 0.3;
+
+  const targetDate = new Date("August 5, 2025 09:00:00").getTime();
+  const countdown = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.getElementById("timer").innerHTML =
+      days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+    if (distance < 0) {
+      clearInterval(countdown);
+      document.getElementById("timer").innerHTML = "The Event Has Started!";
+    }
+  }, 1000);
+
+  const rainContainer = document.getElementById('rain');
+  const raindropCount = 50; 
+  for (let i = 0; i < raindropCount; i++) {
+    const drop = document.createElement('div');
+    drop.classList.add('rain-drop');
+    drop.style.left = Math.random() * 100 + 'vw';
+    drop.style.animationDelay = (Math.random() * 3) + 's';
+    drop.style.animationDuration = (2 + Math.random() * 2) + 's';
+    rainContainer.appendChild(drop);
+  }
+</script>
+
+</body>
+</html>
